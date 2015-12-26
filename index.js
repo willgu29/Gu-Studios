@@ -35,7 +35,7 @@ app.get("/", function (req, res) {
 	if (!req.user) {
 		res.render('landingPage', {layout: "/layouts/main"});
 	} else {
-		res.render('index');
+		res.render('index', {layout: "/layouts/main"});
 	}
 });
 

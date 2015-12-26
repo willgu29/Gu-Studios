@@ -1,0 +1,65 @@
+{{!< default}}
+{{! The tag above means - insert everything in this file into the {body} of the default.hbs template }}
+
+{{! The big featured header }}
+
+{{! Everything inside the #author tags pulls data from the author }}
+{{#author}}
+    <header class="main-header author-head {{#if cover}}" style="background-image: url({{cover}}){{else}}no-cover{{/if}}">
+        <nav class="main-nav overlay clearfix">
+            {{#if @blog.logo}}<a class="blog-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>{{/if}}
+            {{#if @blog.navigation}}
+                <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+            {{/if}}
+        </nav>
+    </header>
+
+    <section class="author-profile inner">
+        {{#if image}}
+        <figure class="author-image">
+            <div class="img" style="background-image: url({{image}})"><span class="hidden">{{name}}'s Picture</span></div>
+        </figure>
+        {{/if}}
+        <h1 class="author-title">{{name}}</h1>
+        {{#if bio}}
+            <h2 class="author-bio">{{bio}}</h2>
+        {{/if}}
+        <div class="author-meta">
+            {{#if location}}<span class="author-location icon-location">{{location}}</span>{{/if}}
+            {{#if website}}<span class="author-link icon-link"><a href="{{website}}">{{website}}</a></span>{{/if}}
+            <span class="author-stats"><i class="icon-stats"></i> {{plural ../pagination.total empty='No posts' singular='% post' plural='% posts'}}</span>
+        </div>
+    </section>
+
+    <main class="content" role="main">
+    <article class="{{post_class}}">
+
+        <header class="post-header">
+            <h1 class="post-title">{{title}}</h1>
+        </header>
+
+        <section class="post-content">
+            Will Gu was born on August 21st, 1995 in Canada. Shortly after his birth his family moved to New Hampshire where he grew up and began harboring thoughts on dropping out of high school and starting a company. This hasn't happened yet, although he has dropped out of UCLA to pursue nothing in particular. An eccentric as always, he has vested interests in coding, design, entrepreneurship, family, and god knows what else.
+
+            <br />
+            <br />
+            Follow me by <a href="gustudios.com/subscribe">mail</a> or <a href="twitter.com/willgu29">twitter</a> to stay updated with what I'm doing somewhat infrequently.
+            <br />
+            <br />
+            Contact me at
+            will@gustudios.com or <a href="facebook.com/wgu29">facebook</a>.
+
+        </section>
+
+    </article>
+</main>
+{{/author}}
+
+
+
+<main class="content" role="main">
+
+    {{! The tag below includes the post loop - partials/loop.hbs }}
+    {{> "loop"}}
+
+</main>
