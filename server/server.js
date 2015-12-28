@@ -62,7 +62,20 @@ app.post("/gustudios/api/newFollower", function (req, res) {
            				return res.json({info: "There was an error. Please try again in a minute."});
           			} else {
           				console.log(newFollower);
-	           			//TODO: Send welcome email here
+
+          				sendEmailSinglePerson("willgu29@gmail.com"
+          										,"New Follower!"
+          										,"You have a new subscriber! Yay!"
+          										,newFollower, "Well that's it.."
+          										, "newFollower");
+
+
+          				sendEmailSinglePerson(newFollower.email
+          										,"Hi by Will Gu"
+          										,"Welcome to the Gu Studios Following!"
+          										,"I don't have a surprise, but at least you got this email and saw that picture of me."
+          										,"I'm looking forward to keeping updated. Feel free to respond to this email address at any time with feedback, ideas, or ramblings. I'll read them. Cheers!"
+          										,"welcomeMessage");
 
  	        	    	return res.redirect("http://gustudios.com/sweet");
           			}
@@ -146,4 +159,37 @@ db.once('open', function(callback) {
 //***********************
 
 
+function sendEmailSinglePerson(email, subject, headerMessage, bodyMessage, footerMessage, tag) {
+
+          				var format = {
+      					"email": email,
+      					"type": "to"
+      					};
+
+      					var htmlHeader = "<h4>" +headerMessage+ "</h4>";
+      					var htmlBody = "<p>" + bodyMessage + "</p>";
+      					var htmlFooter = "<p>" + footerMessage + "</p>";
+      					var message = {
+        					"key": config.MANDRILL_MESSAGE_KEY,
+        					"html": htmlHeader + htmlBody + htmlFooter,
+        					"subject": subject,
+       						"from_email": "will@gustudios.com",
+        					"from_name": "Gu Studios",
+        					"to": [format],
+        					"track_opens": true,
+        					"track_clicks": true,
+        					"auto_text": true,
+        					"preserve_recipients": false,  //display recipients
+        					"tags": [tag]
+
+        				};
+
+        				mandrill_client.messages.send({"message": message}, function(result) {
+        					console.log(result);
+        				}, function(e) {
+        					// Mandrill returns the error as an object with name and message keys
+        					console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+        					// A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+        				});
+}
 
