@@ -37,24 +37,41 @@ app.get("/gustudios/api/admin", auth, function (req, res) {
 
 
 app.post("/gustudios/api/newFollower", function (req, res) {
-	var newFollower = new Follower({email: req.body.email,
+
+	if (req.body.email == "") {
+		res.json("Please enter an email.");
+	}
+	Follower.findOne({"email":req.body.email}, function (err, follower) {
+		console.log(follower);
+		if (err) {
+			return res.json({info: "There was an error. Please try again in a minute."});
+		} else {
+			if (follower) {
+				res.redirect("http://gustudios.com/nice-try");
+			} else {
+				var newFollower = new Follower({email: req.body.email,
   									tech: req.body.tech,
   									writing: req.body.writing,
   									philosophy: req.body.philosophy,
   									random: req.body.random
   									});
 
-	newFollower.save(function (err, newFollower) {
-         if (err) {
-           console.error(err);
-           return res.json({info: "There was an error. Please try again in a minute."});
-          } else {
+				newFollower.save(function (err, newFollower) {
+         			if (err) {
+           				console.error(err);
+           				return res.json({info: "There was an error. Please try again in a minute."});
+          			} else {
+          				console.log(newFollower);
+	           			//TODO: Send welcome email here
 
-           //TODO: Send welcome email here
+ 	        	    	return res.redirect("http://gustudios.com/sweet");
+          			}
+     			});
+			}	
+		}
+	});
 
-           return res.json("You're all set. Check your inbox for a special email!");
-          }
-     });
+	
 });
 
 app.post("/gustudios/api/admin/sendMail", function (req, res) {

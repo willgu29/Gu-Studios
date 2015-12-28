@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
 var followerSchema = new mongoose.Schema({
-
   email: String,
   tech: Boolean,
   writing: Boolean,
