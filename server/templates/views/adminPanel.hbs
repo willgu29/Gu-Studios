@@ -1,6 +1,23 @@
 <div id="panel">
 
-Hello
+		<!-- MANDRILL MAIL -->
+		<div>
+			<h3>Send Mail</h3>
+				<form method="post" action="/gustudios/api/admin/sendMail">
+					Subject: <input type="text" id="subject" name="subject" /> <br />
+					HTML Text: <textarea id="html" name="html"cols="60" row="10" ></textarea> <br />
+					From Email: <input type="text" id="from_email" name="from_email" /> <br />
+					From Name: <input type="text" id="from_name" name="from_name" /> <br />
+					To: (Separate multiple with commas (no spaces)): <br />
+					<input type="text" id="to_email" name="to_email" /> <br />
+					Tags: (Separate multiple with commas (no spaces)): <br />
+					<input type="text" id="tags" name="tags" /> <br />
+					<input type="submit" value="Submit" id="sendMail" />
+
+
+				</form>
+		</div>
+
 
 
 </div>
