@@ -53,6 +53,7 @@ app.post("/gustudios/api/newFollower", function (req, res) {
   									tech: req.body.tech,
   									writing: req.body.writing,
   									philosophy: req.body.philosophy,
+  									psychology: req.body.psychology,
   									random: req.body.random
   									});
 

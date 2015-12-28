@@ -5,6 +5,7 @@ var followerSchema = new mongoose.Schema({
   tech: Boolean,
   writing: Boolean,
   philosophy: Boolean,
+  psychology: Boolean,
   random: Boolean,
   dateCreated: {type: Date, default: Date.now},
 
